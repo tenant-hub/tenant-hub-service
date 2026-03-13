@@ -34,6 +34,9 @@ public class RentEntity extends BaseEntity {
     @Column(name = "currency", nullable = false, length = 10)
     private String currency;
 
+    @Column(name = "zam_orani", precision = 5, scale = 2)
+    private BigDecimal zamOrani;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private Status status = Status.ACTIVE;

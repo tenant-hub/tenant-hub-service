@@ -27,4 +27,6 @@ public class RentUpdateRequest {
     @NotBlank(message = "Para birimi boş olamaz")
     @Size(max = 10, message = "Para birimi en fazla 10 karakter olabilir")
     private String currency;
+
+    private BigDecimal zamOrani;
 }

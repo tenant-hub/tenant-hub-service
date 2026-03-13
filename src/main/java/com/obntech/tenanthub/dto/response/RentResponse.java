@@ -19,6 +19,7 @@ public class RentResponse {
     private LocalDateTime rentDate;
     private BigDecimal rentAmount;
     private String currency;
+    private BigDecimal zamOrani;
     private Status status;
     private LocalDateTime createdDate;
     private String createdBy;
