@@ -106,13 +106,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER TRG_REAL_ESTATE_HIS
     AFTER INSERT OR UPDATE OR DELETE ON tenant_hub.REAL_ESTATE
     FOR EACH ROW EXECUTE FUNCTION tenant_hub.FN_REAL_ESTATE_HIS();
-
--- ---------------------------------------------------------------
--- REAL_ESTATE PERMISSIONS
--- ---------------------------------------------------------------
-INSERT INTO tenant_hub.PERMISSION (ID, NAME, DESCRIPTION, MODULE, ACTION, STATUS, CREATED_BY, CREATED_DATE, CREATED_IP)
-VALUES
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'REAL_ESTATE_CREATE', 'Gayrimenkul oluşturma yetkisi', 'REAL_ESTATE', 'CREATE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'REAL_ESTATE_READ',   'Gayrimenkul görüntüleme yetkisi', 'REAL_ESTATE', 'READ',   'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'REAL_ESTATE_UPDATE', 'Gayrimenkul güncelleme yetkisi', 'REAL_ESTATE', 'UPDATE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'REAL_ESTATE_DELETE', 'Gayrimenkul silme yetkisi',      'REAL_ESTATE', 'DELETE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1');

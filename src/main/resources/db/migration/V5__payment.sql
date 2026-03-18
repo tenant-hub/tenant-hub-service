@@ -99,13 +99,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER TRG_PAYMENT_HIS
     AFTER INSERT OR UPDATE OR DELETE ON tenant_hub.PAYMENT
     FOR EACH ROW EXECUTE FUNCTION tenant_hub.FN_PAYMENT_HIS();
-
--- ---------------------------------------------------------------
--- PAYMENT PERMISSIONS
--- ---------------------------------------------------------------
-INSERT INTO tenant_hub.PERMISSION (ID, NAME, DESCRIPTION, MODULE, ACTION, STATUS, CREATED_BY, CREATED_DATE, CREATED_IP)
-VALUES
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'PAYMENT_CREATE', 'Ödeme kaydı oluşturma yetkisi',    'PAYMENT', 'CREATE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'PAYMENT_READ',   'Ödeme kaydı görüntüleme yetkisi',  'PAYMENT', 'READ',   'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'PAYMENT_UPDATE', 'Ödeme kaydı güncelleme yetkisi',   'PAYMENT', 'UPDATE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'PAYMENT_DELETE', 'Ödeme kaydı silme yetkisi',         'PAYMENT', 'DELETE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1');

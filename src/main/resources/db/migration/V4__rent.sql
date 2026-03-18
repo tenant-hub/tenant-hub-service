@@ -99,13 +99,3 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER TRG_RENT_HIS
     AFTER INSERT OR UPDATE OR DELETE ON tenant_hub.RENT
     FOR EACH ROW EXECUTE FUNCTION tenant_hub.FN_RENT_HIS();
-
--- ---------------------------------------------------------------
--- RENT PERMISSIONS
--- ---------------------------------------------------------------
-INSERT INTO tenant_hub.PERMISSION (ID, NAME, DESCRIPTION, MODULE, ACTION, STATUS, CREATED_BY, CREATED_DATE, CREATED_IP)
-VALUES
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'RENT_CREATE', 'Kira kaydı oluşturma yetkisi',    'RENT', 'CREATE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'RENT_READ',   'Kira kaydı görüntüleme yetkisi',  'RENT', 'READ',   'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'RENT_UPDATE', 'Kira kaydı güncelleme yetkisi',   'RENT', 'UPDATE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1'),
-    (nextval('tenant_hub.SEQ_PERMISSION'), 'RENT_DELETE', 'Kira kaydı silme yetkisi',         'RENT', 'DELETE', 'ACTIVE', 'SYSTEM', NOW(), '127.0.0.1');
