@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "USERS", schema = "devuser")
+@Table(name = "USERS", schema = "tenant_hub")
 @Getter
 @Setter
 public class UserEntity extends BaseEntity {
