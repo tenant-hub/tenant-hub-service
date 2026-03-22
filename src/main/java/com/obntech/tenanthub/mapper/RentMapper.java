@@ -15,6 +15,7 @@ public class RentMapper {
                 .rentDate(entity.getRentDate())
                 .rentAmount(entity.getRentAmount())
                 .currency(entity.getCurrency())
+                .increaseRate(entity.getIncreaseRate())
                 .status(entity.getStatus())
                 .createdDate(entity.getCreatedDate())
                 .createdBy(entity.getCreatedBy())
