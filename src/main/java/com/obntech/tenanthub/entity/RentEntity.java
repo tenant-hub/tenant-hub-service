@@ -37,6 +37,9 @@ public class RentEntity extends BaseEntity {
     @Column(name = "increase_rate", precision = 5, scale = 2)
     private BigDecimal increaseRate;
 
+    @Column(name = "payment_due_date", nullable = false)
+    private LocalDateTime paymentDueDate;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private Status status = Status.ACTIVE;

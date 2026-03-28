@@ -47,21 +47,25 @@ class RentServiceTest {
 
     @Test
     void create_withIncreaseRate_shouldPersistIncreaseRate() {
+        LocalDateTime paymentDueDate = LocalDateTime.now().plusMonths(1);
         RentCreateRequest request = RentCreateRequest.builder()
                 .realEstateId(1L)
                 .rentDate(LocalDateTime.now())
                 .rentAmount(new BigDecimal("5000.00"))
                 .currency("TRY")
                 .increaseRate(new BigDecimal("12.50"))
+                .paymentDueDate(paymentDueDate)
                 .build();
 
         RentEntity savedEntity = new RentEntity();
         savedEntity.setId(1L);
         savedEntity.setIncreaseRate(new BigDecimal("12.50"));
+        savedEntity.setPaymentDueDate(paymentDueDate);
 
         RentResponse expectedResponse = RentResponse.builder()
                 .id(1L)
                 .increaseRate(new BigDecimal("12.50"))
+                .paymentDueDate(paymentDueDate)
                 .build();
 
         when(realEstateService.findById(1L)).thenReturn(realEstate);
@@ -71,28 +75,34 @@ class RentServiceTest {
         RentResponse result = rentService.create(request, "127.0.0.1");
 
         assertThat(result.getIncreaseRate()).isEqualByComparingTo(new BigDecimal("12.50"));
+        assertThat(result.getPaymentDueDate()).isEqualTo(paymentDueDate);
         verify(rentRepository).save(argThat(entity ->
                 new BigDecimal("12.50").compareTo(entity.getIncreaseRate()) == 0
+                        && paymentDueDate.equals(entity.getPaymentDueDate())
         ));
     }
 
     @Test
     void create_withoutIncreaseRate_shouldPersistNullIncreaseRate() {
+        LocalDateTime paymentDueDate = LocalDateTime.now().plusMonths(1);
         RentCreateRequest request = RentCreateRequest.builder()
                 .realEstateId(1L)
                 .rentDate(LocalDateTime.now())
                 .rentAmount(new BigDecimal("5000.00"))
                 .currency("TRY")
                 .increaseRate(null)
+                .paymentDueDate(paymentDueDate)
                 .build();
 
         RentEntity savedEntity = new RentEntity();
         savedEntity.setId(2L);
         savedEntity.setIncreaseRate(null);
+        savedEntity.setPaymentDueDate(paymentDueDate);
 
         RentResponse expectedResponse = RentResponse.builder()
                 .id(2L)
                 .increaseRate(null)
+                .paymentDueDate(paymentDueDate)
                 .build();
 
         when(realEstateService.findById(1L)).thenReturn(realEstate);
@@ -102,17 +112,23 @@ class RentServiceTest {
         RentResponse result = rentService.create(request, "127.0.0.1");
 
         assertThat(result.getIncreaseRate()).isNull();
-        verify(rentRepository).save(argThat(entity -> entity.getIncreaseRate() == null));
+        assertThat(result.getPaymentDueDate()).isEqualTo(paymentDueDate);
+        verify(rentRepository).save(argThat(entity ->
+                entity.getIncreaseRate() == null
+                        && paymentDueDate.equals(entity.getPaymentDueDate())
+        ));
     }
 
     @Test
     void update_withIncreaseRate_shouldUpdateIncreaseRate() {
+        LocalDateTime paymentDueDate = LocalDateTime.now().plusMonths(2);
         RentUpdateRequest request = RentUpdateRequest.builder()
                 .realEstateId(1L)
                 .rentDate(LocalDateTime.now())
                 .rentAmount(new BigDecimal("6000.00"))
                 .currency("TRY")
                 .increaseRate(new BigDecimal("25.00"))
+                .paymentDueDate(paymentDueDate)
                 .build();
 
         RentEntity existingEntity = new RentEntity();
@@ -122,10 +138,12 @@ class RentServiceTest {
         RentEntity updatedEntity = new RentEntity();
         updatedEntity.setId(1L);
         updatedEntity.setIncreaseRate(new BigDecimal("25.00"));
+        updatedEntity.setPaymentDueDate(paymentDueDate);
 
         RentResponse expectedResponse = RentResponse.builder()
                 .id(1L)
                 .increaseRate(new BigDecimal("25.00"))
+                .paymentDueDate(paymentDueDate)
                 .build();
 
         when(rentRepository.findById(1L)).thenReturn(java.util.Optional.of(existingEntity));
@@ -136,8 +154,10 @@ class RentServiceTest {
         RentResponse result = rentService.update(1L, request, "127.0.0.1");
 
         assertThat(result.getIncreaseRate()).isEqualByComparingTo(new BigDecimal("25.00"));
+        assertThat(result.getPaymentDueDate()).isEqualTo(paymentDueDate);
         verify(rentRepository).save(argThat(entity ->
                 new BigDecimal("25.00").compareTo(entity.getIncreaseRate()) == 0
+                        && paymentDueDate.equals(entity.getPaymentDueDate())
         ));
     }
 }

@@ -33,4 +33,7 @@ public class RentCreateRequest {
     @DecimalMin(value = "0.00", message = "Zam oranı 0'dan küçük olamaz")
     @DecimalMax(value = "100.00", message = "Zam oranı 100'den büyük olamaz")
     private BigDecimal increaseRate;
+
+    @NotNull(message = "Son ödeme tarihi boş olamaz")
+    private LocalDateTime paymentDueDate;
 }

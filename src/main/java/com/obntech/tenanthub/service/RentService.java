@@ -62,6 +62,7 @@ public class RentService {
         entity.setRentAmount(request.getRentAmount());
         entity.setCurrency(request.getCurrency());
         entity.setIncreaseRate(request.getIncreaseRate());
+        entity.setPaymentDueDate(request.getPaymentDueDate());
         entity.setCreatedBy("SYSTEM");
         entity.setCreatedDate(LocalDateTime.now());
         entity.setCreatedIp(createdIp);
@@ -81,6 +82,7 @@ public class RentService {
         entity.setRentAmount(request.getRentAmount());
         entity.setCurrency(request.getCurrency());
         entity.setIncreaseRate(request.getIncreaseRate());
+        entity.setPaymentDueDate(request.getPaymentDueDate());
         entity.setUpdatedBy("SYSTEM");
         entity.setUpdatedDate(LocalDateTime.now());
         entity.setUpdatedIp(updatedIp);

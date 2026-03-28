@@ -20,6 +20,7 @@ public class RentResponse {
     private BigDecimal rentAmount;
     private String currency;
     private BigDecimal increaseRate;
+    private LocalDateTime paymentDueDate;
     private Status status;
     private LocalDateTime createdDate;
     private String createdBy;
