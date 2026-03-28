@@ -5,8 +5,8 @@ spring:
   application:
     name: TenantHub
   datasource:
-    url: jdbc:postgresql://46.225.97.71:5432/postgres?currentSchema=devuser
-    username: devuser
+    url: jdbc:postgresql://46.225.97.71:5432/postgres?currentSchema=tenant_hub
+    username: postgres
     password: ${DB_PASSWORD:123456}
     driver-class-name: org.postgresql.Driver
   jpa:
