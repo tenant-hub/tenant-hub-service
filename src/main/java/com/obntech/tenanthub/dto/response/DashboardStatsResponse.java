@@ -1,0 +1,16 @@
+package com.obntech.tenanthub.dto.response;
+
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class DashboardStatsResponse {
+
+    private Integer totalUsers;
+    private Integer totalRealEstates;
+    private Integer totalRents;
+    private Integer totalPayments;
+}
