@@ -13,4 +13,6 @@ public class DashboardStatsResponse {
     private Integer totalRealEstates;
     private Integer totalRents;
     private Integer totalPayments;
+    private Integer rentedRealEstates;
+    private Integer vacantRealEstates;
 }

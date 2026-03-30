@@ -28,12 +28,16 @@ public class DashboardService {
         long totalRealEstates = realEstateRepository.count();
         long totalRents = rentRepository.count();
         long totalPayments = paymentRepository.count();
+        long rentedRealEstates = rentRepository.countDistinctActiveRealEstates();
+        long vacantRealEstates = rentRepository.countVacantRealEstates();
 
         return DashboardStatsResponse.builder()
                 .totalUsers((int) totalUsers)
                 .totalRealEstates((int) totalRealEstates)
                 .totalRents((int) totalRents)
                 .totalPayments((int) totalPayments)
+                .rentedRealEstates((int) rentedRealEstates)
+                .vacantRealEstates((int) vacantRealEstates)
                 .build();
     }
 }
