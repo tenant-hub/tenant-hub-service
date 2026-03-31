@@ -26,11 +26,12 @@ Permission'lar `{MODÜL}_{ACTION}` formatındadır. Her modül için CREATE, REA
 | Modül | Permission'lar |
 |---|---|
 | USER | `USER_CREATE`, `USER_READ`, `USER_UPDATE`, `USER_DELETE` |
-| ROLE | `ROLE_CREATE`, `ROLE_READ`, `ROLE_UPDATE`, `ROLE_DELETE` |
+| ROLES | `ROLES_CREATE`, `ROLES_READ`, `ROLES_UPDATE`, `ROLES_DELETE` |
 | PERMISSION | `PERMISSION_CREATE`, `PERMISSION_READ`, `PERMISSION_UPDATE`, `PERMISSION_DELETE` |
 | REAL_ESTATE | `REAL_ESTATE_CREATE`, `REAL_ESTATE_READ`, `REAL_ESTATE_UPDATE`, `REAL_ESTATE_DELETE` |
 | RENT | `RENT_CREATE`, `RENT_READ`, `RENT_UPDATE`, `RENT_DELETE` |
 | PAYMENT | `PAYMENT_CREATE`, `PAYMENT_READ`, `PAYMENT_UPDATE`, `PAYMENT_DELETE` |
+| TENANT | `TENANT_READ` |
 
 ### Auth Akışı
 - `POST /api/v1/auth/login` → `accessToken` (body) + `refreshToken` (HttpOnly cookie)
@@ -61,7 +62,7 @@ Permission'lar `{MODÜL}_{ACTION}` formatındadır. Her modül için CREATE, REA
 
 #### Teknoloji Stack'i
 - **Veritabanı:** PostgreSQL
-- **Schema:** `devuser`
+- **Schema:** `tenant_hub`
 - **Migration:** Flyway (`src/main/resources/db/migration/V{n}__{açıklama}.sql`)
 
 #### Temel Entity'ler & Şema
@@ -83,6 +84,9 @@ REAL_ESTATE ──< RENT ──< PAYMENT
 | `REAL_ESTATE` (alter) | V3 | tenant_id, landlord_id FK eklendi |
 | `RENT` | V4 | Kiralama kayıtları |
 | `PAYMENT` | V5 | Ödeme kayıtları |
+| `RENT` (alter) | V6 | increase_rate kolonu eklendi |
+| `RENT` (alter) | V15 | payment_due_date kolonu eklendi |
+| `RENT` (alter) | V16 | note kolonu eklendi |
 
 #### Kolon Standartları
 - Her tablo: `ID`, `STATUS`, `CREATED_BY`, `CREATED_DATE`, `CREATED_IP`, `UPDATED_BY`, `UPDATED_DATE`, `UPDATED_IP`
@@ -118,6 +122,8 @@ DELETE /api/v1/{resource}/{id}                 → Sil (204)
 | Resource | Base Path |
 |---|---|
 | Auth | `/api/v1/auth` |
+| Health | `/api/v1/health` |
+| Dashboard | `/api/v1/dashboard` |
 | Users | `/api/v1/users` |
 | Roles | `/api/v1/roles` |
 | Permissions | `/api/v1/permissions` |
@@ -126,6 +132,13 @@ DELETE /api/v1/{resource}/{id}                 → Sil (204)
 | Real Estates | `/api/v1/real-estates` |
 | Rents | `/api/v1/rents` |
 | Payments | `/api/v1/payments` |
+
+**Ek endpointler:**
+- `GET /api/v1/health` → `{ status, application, timestamp }` (auth gerektirmez)
+- `GET /api/v1/dashboard/stats` → `DashboardStatsResponse` (isAuthenticated) — totalUsers, totalRealEstates, totalRents, totalPayments, rentedRealEstates, vacantRealEstates
+- `GET /api/v1/rents/real-estate/{realEstateId}` → Gayrimenkule ait kiralamalar (sayfalı)
+- `GET /api/v1/payments/rent/{rentId}` → Kiralamaya ait ödemeler (sayfalı)
+- `GET /api/v1/permissions/module/{module}` → Modüle göre yetkiler (liste, sayfalı değil)
 
 #### Mimari Notlar
 - Response formatı hata durumunda RFC 7807 `ProblemDetail` (title, status, detail, instance, code)
@@ -159,10 +172,11 @@ DELETE /api/v1/{resource}/{id}                 → Sil (204)
 | Kullanıcı-Rol Yönetimi | ✅ Tamamlandı | |
 | Rol-Yetki Yönetimi | ✅ Tamamlandı | |
 | Gayrimenkul CRUD | ✅ Tamamlandı | tenant_id, landlord_id FK ile |
-| Kiralama CRUD | ✅ Tamamlandı | real_estate_id FK ile |
+| Kiralama CRUD | ✅ Tamamlandı | real_estate_id FK, increase_rate, payment_due_date, note |
 | Ödeme CRUD | ✅ Tamamlandı | rent_id FK ile, bir rent'e N ödeme |
+| Dashboard İstatistikleri | ✅ Tamamlandı | totalUsers, totalRealEstates, totalRents, totalPayments, rentedRealEstates, vacantRealEstates |
+| Health Check | ✅ Tamamlandı | `GET /api/v1/health` — auth gerektirmez |
 | Endpoint Yetkilendirme | ✅ Tamamlandı | @PreAuthorize her controller'da |
 | Global Hata Yönetimi | ✅ Tamamlandı | 403, 404, 409, 500 |
 | History Trigger'ları | ✅ Tamamlandı | Tüm tablolarda |
-| Frontend | ⏳ Planlandı | React + Vite |
 | createdBy JWT'den okuma | ⏳ Planlandı | Şu an hardcode "SYSTEM" |
