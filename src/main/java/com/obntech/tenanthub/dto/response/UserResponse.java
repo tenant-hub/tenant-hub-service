@@ -1,5 +1,6 @@
 package com.obntech.tenanthub.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.obntech.tenanthub.enums.Status;
 import lombok.*;
 
@@ -19,8 +20,10 @@ public class UserResponse {
     private String lastName;
     private String phone;
     private Status status;
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime lastLoginDate;
     private Integer errorLoginCount;
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime createdDate;
     private String createdBy;
 }

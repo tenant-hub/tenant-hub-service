@@ -1,5 +1,6 @@
 package com.obntech.tenanthub.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.obntech.tenanthub.enums.Status;
 import lombok.*;
 
@@ -16,6 +17,7 @@ public class RoleResponse {
     private String name;
     private String description;
     private Status status;
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime createdDate;
     private String createdBy;
 }

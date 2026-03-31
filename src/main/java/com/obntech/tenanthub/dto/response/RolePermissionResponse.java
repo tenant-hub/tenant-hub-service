@@ -1,5 +1,6 @@
 package com.obntech.tenanthub.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.obntech.tenanthub.enums.PermissionAction;
 import lombok.*;
 
@@ -19,5 +20,6 @@ public class RolePermissionResponse {
     private String permissionName;
     private String module;
     private PermissionAction action;
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime createdDate;
 }

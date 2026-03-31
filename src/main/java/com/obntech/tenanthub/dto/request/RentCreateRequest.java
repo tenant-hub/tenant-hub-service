@@ -22,7 +22,7 @@ public class RentCreateRequest {
     private Long realEstateId;
 
     @NotNull(message = "Kiralama tarihi boş olamaz")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime rentDate;
 
     @NotNull(message = "Kira tutarı boş olamaz")
@@ -37,7 +37,7 @@ public class RentCreateRequest {
     private BigDecimal increaseRate;
 
     @NotNull(message = "Son ödeme tarihi boş olamaz")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime paymentDueDate;
 
     @Size(max = 1000, message = "Not en fazla 1000 karakter olabilir")

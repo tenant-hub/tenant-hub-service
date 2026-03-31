@@ -1,5 +1,6 @@
 package com.obntech.tenanthub.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,5 +27,6 @@ public class PaymentUpdateRequest {
     private String currency;
 
     @NotNull(message = "Ödeme tarihi boş olamaz")
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime paymentDate;
 }

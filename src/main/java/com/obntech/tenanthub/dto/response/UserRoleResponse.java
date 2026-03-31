@@ -1,5 +1,6 @@
 package com.obntech.tenanthub.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,5 +18,6 @@ public class UserRoleResponse {
     private Long roleId;
     private String roleName;
     private String assignedBy;
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime assignedDate;
 }

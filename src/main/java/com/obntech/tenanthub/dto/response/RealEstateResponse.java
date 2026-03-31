@@ -1,5 +1,6 @@
 package com.obntech.tenanthub.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.obntech.tenanthub.enums.Status;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class RealEstateResponse {
     private Long landlordId;
     private String landlordName;
     private Status status;
+    @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime createdDate;
     private String createdBy;
 }
