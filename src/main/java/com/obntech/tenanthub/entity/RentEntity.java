@@ -40,6 +40,9 @@ public class RentEntity extends BaseEntity {
     @Column(name = "payment_due_date", nullable = false)
     private LocalDateTime paymentDueDate;
 
+    @Column(name = "note", length = 1000)
+    private String note;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private Status status = Status.ACTIVE;

@@ -120,6 +120,104 @@ class RentServiceTest {
     }
 
     @Test
+    void create_withNote_shouldPersistNote() {
+        LocalDateTime paymentDueDate = LocalDateTime.now().plusMonths(1);
+        String note = "Kiracı talep üzerine kira sözleşmesi yenilendi.";
+        RentCreateRequest request = RentCreateRequest.builder()
+                .realEstateId(1L)
+                .rentDate(LocalDateTime.now())
+                .rentAmount(new BigDecimal("5000.00"))
+                .currency("TRY")
+                .paymentDueDate(paymentDueDate)
+                .note(note)
+                .build();
+
+        RentEntity savedEntity = new RentEntity();
+        savedEntity.setId(3L);
+        savedEntity.setNote(note);
+
+        RentResponse expectedResponse = RentResponse.builder()
+                .id(3L)
+                .note(note)
+                .build();
+
+        when(realEstateService.findById(1L)).thenReturn(realEstate);
+        when(rentRepository.save(any(RentEntity.class))).thenReturn(savedEntity);
+        when(rentMapper.toResponse(savedEntity)).thenReturn(expectedResponse);
+
+        RentResponse result = rentService.create(request, "127.0.0.1");
+
+        assertThat(result.getNote()).isEqualTo(note);
+        verify(rentRepository).save(argThat(entity -> note.equals(entity.getNote())));
+    }
+
+    @Test
+    void create_withoutNote_shouldPersistNullNote() {
+        LocalDateTime paymentDueDate = LocalDateTime.now().plusMonths(1);
+        RentCreateRequest request = RentCreateRequest.builder()
+                .realEstateId(1L)
+                .rentDate(LocalDateTime.now())
+                .rentAmount(new BigDecimal("5000.00"))
+                .currency("TRY")
+                .paymentDueDate(paymentDueDate)
+                .build();
+
+        RentEntity savedEntity = new RentEntity();
+        savedEntity.setId(4L);
+        savedEntity.setNote(null);
+
+        RentResponse expectedResponse = RentResponse.builder()
+                .id(4L)
+                .note(null)
+                .build();
+
+        when(realEstateService.findById(1L)).thenReturn(realEstate);
+        when(rentRepository.save(any(RentEntity.class))).thenReturn(savedEntity);
+        when(rentMapper.toResponse(savedEntity)).thenReturn(expectedResponse);
+
+        RentResponse result = rentService.create(request, "127.0.0.1");
+
+        assertThat(result.getNote()).isNull();
+        verify(rentRepository).save(argThat(entity -> entity.getNote() == null));
+    }
+
+    @Test
+    void update_withNote_shouldUpdateNote() {
+        LocalDateTime paymentDueDate = LocalDateTime.now().plusMonths(2);
+        String note = "Not güncellendi.";
+        RentUpdateRequest request = RentUpdateRequest.builder()
+                .realEstateId(1L)
+                .rentDate(LocalDateTime.now())
+                .rentAmount(new BigDecimal("6000.00"))
+                .currency("TRY")
+                .paymentDueDate(paymentDueDate)
+                .note(note)
+                .build();
+
+        RentEntity existingEntity = new RentEntity();
+        existingEntity.setId(1L);
+
+        RentEntity updatedEntity = new RentEntity();
+        updatedEntity.setId(1L);
+        updatedEntity.setNote(note);
+
+        RentResponse expectedResponse = RentResponse.builder()
+                .id(1L)
+                .note(note)
+                .build();
+
+        when(rentRepository.findById(1L)).thenReturn(java.util.Optional.of(existingEntity));
+        when(realEstateService.findById(1L)).thenReturn(realEstate);
+        when(rentRepository.save(any(RentEntity.class))).thenReturn(updatedEntity);
+        when(rentMapper.toResponse(updatedEntity)).thenReturn(expectedResponse);
+
+        RentResponse result = rentService.update(1L, request, "127.0.0.1");
+
+        assertThat(result.getNote()).isEqualTo(note);
+        verify(rentRepository).save(argThat(entity -> note.equals(entity.getNote())));
+    }
+
+    @Test
     void update_withIncreaseRate_shouldUpdateIncreaseRate() {
         LocalDateTime paymentDueDate = LocalDateTime.now().plusMonths(2);
         RentUpdateRequest request = RentUpdateRequest.builder()

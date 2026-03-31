@@ -36,4 +36,7 @@ public class RentCreateRequest {
 
     @NotNull(message = "Son ödeme tarihi boş olamaz")
     private LocalDateTime paymentDueDate;
+
+    @Size(max = 1000, message = "Not en fazla 1000 karakter olabilir")
+    private String note;
 }
