@@ -1,5 +1,6 @@
 package com.obntech.tenanthub.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ public class RentUpdateRequest {
     private Long realEstateId;
 
     @NotNull(message = "Kiralama tarihi boş olamaz")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime rentDate;
 
     @NotNull(message = "Kira tutarı boş olamaz")
@@ -35,6 +37,7 @@ public class RentUpdateRequest {
     private BigDecimal increaseRate;
 
     @NotNull(message = "Son ödeme tarihi boş olamaz")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime paymentDueDate;
 
     @Size(max = 1000, message = "Not en fazla 1000 karakter olabilir")
