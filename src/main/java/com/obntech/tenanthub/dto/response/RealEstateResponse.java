@@ -21,6 +21,7 @@ public class RealEstateResponse {
     private String district;
     private String neighborhood;
     private String address;
+    private String note;
     private Long tenantId;
     private String tenantName;
     private Long landlordId;

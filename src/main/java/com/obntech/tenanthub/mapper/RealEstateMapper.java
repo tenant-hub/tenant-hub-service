@@ -18,6 +18,7 @@ public class RealEstateMapper {
                 .district(entity.getDistrict())
                 .neighborhood(entity.getNeighborhood())
                 .address(entity.getAddress())
+                .note(entity.getNote())
                 .status(entity.getStatus())
                 .createdDate(entity.getCreatedDate())
                 .createdBy(entity.getCreatedBy());
@@ -44,6 +45,7 @@ public class RealEstateMapper {
         entity.setDistrict(request.getDistrict());
         entity.setNeighborhood(request.getNeighborhood());
         entity.setAddress(request.getAddress());
+        entity.setNote(request.getNote());
         return entity;
     }
 }

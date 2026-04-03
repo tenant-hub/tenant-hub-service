@@ -38,6 +38,9 @@ public class RealEstateUpdateRequest {
     @Size(max = 500, message = "Adres en fazla 500 karakter olabilir")
     private String address;
 
+    @Size(max = 1000, message = "Not en fazla 1000 karakter olabilir")
+    private String note;
+
     private Long tenantId;
 
     private Long landlordId;

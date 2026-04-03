@@ -39,6 +39,9 @@ public class RealEstateEntity extends BaseEntity {
     @Column(name = "address", nullable = false, length = 500)
     private String address;
 
+    @Column(name = "note", length = 1000)
+    private String note;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id", foreignKey = @ForeignKey(name = "FK_REAL_ESTATE_TENANT"))
     private UserEntity tenant;

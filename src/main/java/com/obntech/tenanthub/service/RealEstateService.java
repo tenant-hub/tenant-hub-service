@@ -82,6 +82,7 @@ public class RealEstateService {
         entity.setDistrict(request.getDistrict());
         entity.setNeighborhood(request.getNeighborhood());
         entity.setAddress(request.getAddress());
+        entity.setNote(request.getNote());
         setTenantAndLandlord(entity, request.getTenantId(), request.getLandlordId());
         entity.setUpdatedBy("SYSTEM");
         entity.setUpdatedDate(LocalDateTime.now());
