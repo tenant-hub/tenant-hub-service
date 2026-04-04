@@ -10,6 +10,8 @@ import lombok.*;
 public class DashboardStatsResponse {
 
     private Integer totalUsers;
+    private Integer totalTenants;
+    private Integer totalLandlords;
     private Integer totalRealEstates;
     private Integer totalRents;
     private Integer totalPayments;

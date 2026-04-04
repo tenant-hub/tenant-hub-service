@@ -1,9 +1,11 @@
 package com.obntech.tenanthub.service;
 
 import com.obntech.tenanthub.dto.response.DashboardStatsResponse;
+import com.obntech.tenanthub.repository.LandlordRepository;
 import com.obntech.tenanthub.repository.PaymentRepository;
 import com.obntech.tenanthub.repository.RealEstateRepository;
 import com.obntech.tenanthub.repository.RentRepository;
+import com.obntech.tenanthub.repository.TenantRepository;
 import com.obntech.tenanthub.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class DashboardService {
 
     private final UserRepository userRepository;
+    private final TenantRepository tenantRepository;
+    private final LandlordRepository landlordRepository;
     private final RealEstateRepository realEstateRepository;
     private final RentRepository rentRepository;
     private final PaymentRepository paymentRepository;
@@ -25,6 +29,8 @@ public class DashboardService {
         log.info("Dashboard istatistikleri getiriliyor.");
 
         long totalUsers = userRepository.count();
+        long totalTenants = tenantRepository.count();
+        long totalLandlords = landlordRepository.count();
         long totalRealEstates = realEstateRepository.count();
         long totalRents = rentRepository.count();
         long totalPayments = paymentRepository.count();
@@ -33,6 +39,8 @@ public class DashboardService {
 
         return DashboardStatsResponse.builder()
                 .totalUsers((int) totalUsers)
+                .totalTenants((int) totalTenants)
+                .totalLandlords((int) totalLandlords)
                 .totalRealEstates((int) totalRealEstates)
                 .totalRents((int) totalRents)
                 .totalPayments((int) totalPayments)
