@@ -1,6 +1,7 @@
 package com.obntech.tenanthub.service;
 
 import com.obntech.tenanthub.dto.response.DashboardStatsResponse;
+import com.obntech.tenanthub.enums.Status;
 import com.obntech.tenanthub.repository.LandlordRepository;
 import com.obntech.tenanthub.repository.PaymentRepository;
 import com.obntech.tenanthub.repository.RealEstateRepository;
@@ -29,8 +30,8 @@ public class DashboardService {
         log.info("Dashboard istatistikleri getiriliyor.");
 
         long totalUsers = userRepository.count();
-        long totalTenants = tenantRepository.count();
-        long totalLandlords = landlordRepository.count();
+        long totalTenants = tenantRepository.countByStatus(Status.ACTIVE);
+        long totalLandlords = landlordRepository.countByStatus(Status.ACTIVE);
         long totalRealEstates = realEstateRepository.count();
         long totalRents = rentRepository.count();
         long totalPayments = paymentRepository.count();

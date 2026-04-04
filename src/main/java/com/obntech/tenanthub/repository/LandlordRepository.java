@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LandlordRepository extends JpaRepository<LandlordEntity, Long> {
 
     Page<LandlordEntity> findAllByStatus(Status status, Pageable pageable);
+
+    long countByStatus(Status status);
 }
