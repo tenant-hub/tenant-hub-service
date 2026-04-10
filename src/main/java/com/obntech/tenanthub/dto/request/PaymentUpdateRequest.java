@@ -29,4 +29,7 @@ public class PaymentUpdateRequest {
     @NotNull(message = "Ödeme tarihi boş olamaz")
     @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime paymentDate;
+
+    @Size(max = 1000, message = "Not en fazla 1000 karakter olabilir")
+    private String note;
 }

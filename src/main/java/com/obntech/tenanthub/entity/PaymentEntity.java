@@ -34,6 +34,9 @@ public class PaymentEntity extends BaseEntity {
     @Column(name = "payment_date", nullable = false)
     private LocalDateTime paymentDate;
 
+    @Column(name = "note", length = 1000)
+    private String note;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private Status status = Status.ACTIVE;

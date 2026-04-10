@@ -14,6 +14,7 @@ public class PaymentMapper {
                 .amount(entity.getAmount())
                 .currency(entity.getCurrency())
                 .paymentDate(entity.getPaymentDate())
+                .note(entity.getNote())
                 .status(entity.getStatus())
                 .createdDate(entity.getCreatedDate())
                 .createdBy(entity.getCreatedBy())

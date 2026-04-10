@@ -61,6 +61,7 @@ public class PaymentService {
         entity.setAmount(request.getAmount());
         entity.setCurrency(request.getCurrency());
         entity.setPaymentDate(request.getPaymentDate());
+        entity.setNote(request.getNote());
         entity.setCreatedBy("SYSTEM");
         entity.setCreatedDate(LocalDateTime.now());
         entity.setCreatedIp(createdIp);
@@ -79,6 +80,7 @@ public class PaymentService {
         entity.setAmount(request.getAmount());
         entity.setCurrency(request.getCurrency());
         entity.setPaymentDate(request.getPaymentDate());
+        entity.setNote(request.getNote());
         entity.setUpdatedBy("SYSTEM");
         entity.setUpdatedDate(LocalDateTime.now());
         entity.setUpdatedIp(updatedIp);

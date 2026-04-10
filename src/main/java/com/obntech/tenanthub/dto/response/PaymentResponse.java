@@ -20,6 +20,7 @@ public class PaymentResponse {
     private String currency;
     @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime paymentDate;
+    private String note;
     private Status status;
     @JsonFormat(pattern = "yyyyMMddHHmmss")
     private LocalDateTime createdDate;
